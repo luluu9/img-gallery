@@ -1,0 +1,58 @@
+table {
+    border-collapse: collapse;
+    border: 1px solid #778899;
+    width: 800px;
+    margin: 10px 0px;
+}
+
+table td, table th {
+    padding: 5px;
+}
+
+table tbody td, table th {
+    border: 1px solid #778899;
+}
+
+table tbody td[colspan] {
+    text-align: center;
+}
+
+table tfoot td:last-child {
+    text-align: right;
+}
+
+form label {
+    display: block;
+    margin: 10px;
+    width: 300px;
+}
+
+textarea {
+    display: block;
+    margin: 10px;
+    padding: 2px;
+    border-width: 1px;
+    width: 294px;
+    height: 90px;
+}
+
+form label input {
+    width: 200px;
+    float: right;
+}
+
+form input[type=submit] {
+    display: block;
+    width: 70px;
+    margin: 10px 0px 10px 240px;
+
+}
+
+a.cancel {
+    float: left;
+}
+
+p.description {
+    width: 800px;
+    text-align: justify;
+}
