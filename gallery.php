@@ -35,7 +35,7 @@ $pages = ($images_amount+1)/$IMAGES_PER_PAGE;
     </div>
     <?php endfor ?>
 <?php else: ?>
-    Brak produktów
+    Brak produktÃ³w
 <?php endif ?>
 
 <?php 
@@ -45,7 +45,7 @@ for ($i=1; $i<=$pages; $i++) {
 ?>
 </br>   
 </br>   
-<a href="index.php">&laquo; Wróæ</a>
+<a href="index.php">&laquo; WrÃ³Ä‡</a>
 
 </body>
 </html>
