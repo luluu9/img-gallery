@@ -9,14 +9,12 @@ function resizeImage($image, $w, $h)
 }
 
 function resizeAndWriteImage($imagePath, $outputPath, $w, $h) {
-    $uploadedImage = imagecreatefromjpeg($imagePath);
+    $uploadedImage = loadImage($imagePath);
     if (!$uploadedImage) {
         throw new Exception("The uploaded file is corrupted (or wrong format)");
     } else {
         $resizedImage = resizeImage($uploadedImage, 200, 125);    
-        if (!imagejpeg($resizedImage, $outputPath)) {
-                throw new Exception("Failed to save resized image");
-        }
+        writeImage($resizedImage, $outputPath);
     }
 }
 
@@ -28,7 +26,7 @@ function watermarkImage($image, $watermarkText) {
 
     $imageWidth = imagesx($image);
     $imageHeight = imagesy($image);
-    $WATERMARK_FONTSIZE = (($imageHeight>$imageWidth) ? $imageHeight : $imageWidth)/$WATERMARK_PROPORTION;
+    $WATERMARK_FONTSIZE = (($imageHeight>$imageWidth) ? $imageWidth : $imageHeight)/$WATERMARK_PROPORTION;
     $x = imagesx($image)/2 - strlen($watermarkText)/2*$WATERMARK_FONTSIZE;
     $y = imagesy($image)/2 - $WATERMARK_FONTSIZE/2;
     $black = imagecolorallocatealpha($image, 0, 0, 0, 100);
@@ -39,15 +37,39 @@ function watermarkImage($image, $watermarkText) {
 }
 
 function watermarkAndWriteImage($imagePath, $outputPath, $watermarkText) {
-  $uploadedImage = imagecreatefromjpeg($imagePath);
+  $uploadedImage = loadImage($imagePath);
     if (!$uploadedImage) {
         throw new Exception("The uploaded file is corrupted (or wrong format)");
     } else {
         $watermarkedImage = watermarkImage($uploadedImage, $watermarkText);    
-        if (!imagejpeg($watermarkedImage, $outputPath)) {
-                throw new Exception("Failed to save resized image");
-        }
+        writeImage($watermarkedImage, $outputPath);
     }
+}
+
+function loadImage($imagePath) {
+   $image;
+   $ext = pathinfo($imagePath, PATHINFO_EXTENSION);
+   if ($ext == "png") { 
+    $image = imagecreatefrompng($imagePath);
+   }
+   else if ($ext == "jpg") {
+    $image = imagecreatefromjpeg($imagePath);
+   }
+   return $image;
+}
+
+function writeImage($image, $imagePath) {
+   $ext = pathinfo($imagePath, PATHINFO_EXTENSION);
+   if ($ext == "png") { 
+    if (!imagepng($image, $imagePath)) {
+        throw new Exception("Failed to save image");
+    }
+   }
+   else if ($ext == "jpg") {
+    if (!imagejpeg($image, $imagePath)) {
+        throw new Exception("Failed to save image");
+    }
+   }
 }
 
 ?>
