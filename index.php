@@ -54,6 +54,7 @@ $products = $db->products->find();
     </tfoot>
 </table>
 
+<a href="gallery.php">Galeria</a>
 
 </body>
 </html>

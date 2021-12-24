@@ -1,6 +1,5 @@
 <?php
-function resizeImage($image, $w, $h)
-{
+function resizeImage($image, $w, $h) {
     $oldw = imagesx($image);
     $oldh = imagesy($image);
     $temp = imagecreatetruecolor($w, $h);

@@ -28,7 +28,7 @@ if (!empty($_GET['id'])) {
 
 <h3><?= $product['author'] ?></h3>
 
-<img src="<?= "/images/" . $product['filename'] ?>"</img> </br>
+<img src="<?= "/images/watermark_" . $product['filename'] ?>"</img> </br>
 
 <a href="index.php">&laquo; Wróć</a>
 
