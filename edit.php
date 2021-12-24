@@ -41,13 +41,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'name' => $_POST['name'],
             'author' => $_POST['author'],
             'watermark' => $_POST['watermark'],
-            'filename' => $filename
+            'filename' => $filename,
+            'filepath' => $uploadFile,
+            'miniature_filepath' => $miniatureFilepath,
+            'watermark_filepath' => $watermarkFilepath
         ];
 
-        if (empty($_POST['id'])) {
+        if (empty($_POST['id'])) { // new image
             $db->products->insertOne($product);
-        } else {
-            $id = $_POST['id'];
+        } else { // edit image
+            $id = $_POST['id']; 
+            
+            $old_product = $db->products->findOne(['_id' => new ObjectID($id)]);
+            unlink($old_product['filepath']);
+            unlink($old_product['watermark_filepath']);
+            unlink($old_product['miniature_filepath']);
             $db->products->replaceOne(['_id' => new ObjectID($id)], $product);
         }
 

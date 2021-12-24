@@ -8,6 +8,16 @@ $db = get_db();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
+    $product = $db->products->findOne(['_id' => new ObjectID($id)]);
+    try {
+        unlink($product['filepath']);
+    } catch (Exception $e) { }
+    try {
+        unlink($product['watermark_filepath']);
+    } catch (Exception $e) { }
+    try {
+        unlink($product['miniature_filepath']);
+    } catch (Exception $e) { }
     $db->products->deleteOne(['_id' => new ObjectID($id)]);
 
     header('Location: index.php');
