@@ -4,7 +4,6 @@ require_once 'functions.php';
 require_once 'img.php';
 use MongoDB\BSON\ObjectID;
 
-
 $db = get_db();
 
 $product = [
@@ -16,7 +15,7 @@ $product = [
 ];
 
 $imagesDir = "images/";
-$uploaddir = $_SERVER['DOCUMENT_ROOT'] . "/" . $imagesDir;
+$uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/" . $imagesDir;
 
 $MINIATURE_WIDTH = 200;
 $MINIATURE_HEIGHT = 125;
@@ -28,13 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         !empty($_FILES['image'])
     ) {
         $filename = date('Y-m-d_H-i-s') . "-" . basename($_FILES['image']['name']);
-        $uploadFile = $uploaddir . $filename;
+        $uploadFile = $uploadDir . $filename;
         if (!move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
             throw new Exception("Failed to move uploaded file");
         }
 
-        $miniatureFilepath = $uploaddir . "miniature_" . $filename;
-        $watermarkFilepath = $uploaddir . "watermark_" . $filename;
+        $miniatureFilepath = $uploadDir . "miniature_" . $filename;
+        $watermarkFilepath = $uploadDir . "watermark_" . $filename;
         resizeAndWriteImage($uploadFile, $miniatureFilepath, $MINIATURE_WIDTH, $MINIATURE_HEIGHT);
         watermarkAndWriteImage($uploadFile, $watermarkFilepath, $_POST['watermark']);
         $product = [
@@ -52,10 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else { // edit image
             $id = $_POST['id']; 
             
-            $old_product = $db->products->findOne(['_id' => new ObjectID($id)]);
-            unlink($old_product['filepath']);
-            unlink($old_product['watermark_filepath']);
-            unlink($old_product['miniature_filepath']);
+            $oldProduct = $db->products->findOne(['_id' => new ObjectID($id)]);
+            unlink($oldProduct['filepath']);
+            unlink($oldProduct['watermark_filepath']);
+            unlink($oldProduct['miniature_filepath']);
             $db->products->replaceOne(['_id' => new ObjectID($id)], $product);
         }
 

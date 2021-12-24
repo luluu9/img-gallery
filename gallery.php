@@ -10,10 +10,10 @@ if (!empty($_GET['page'])) {
 
 $db = get_db();
 $products = $db->products->find();
-$products_array = iterator_to_array($products);
-$images_amount = count($products_array);
-$last_index = ($images_amount < $startImage+$IMAGES_PER_PAGE) ? $images_amount : $startImage+$IMAGES_PER_PAGE;
-$pages = ($images_amount+1)/$IMAGES_PER_PAGE;
+$productsArray = iterator_to_array($products);
+$imagesAmount = count($productsArray);
+$lastIndex = ($imagesAmount < $startImage+$IMAGES_PER_PAGE) ? $imagesAmount : $startImage+$IMAGES_PER_PAGE;
+$pages = ($imagesAmount+1)/$IMAGES_PER_PAGE;
 
 ?>
 <!DOCTYPE html>
@@ -25,12 +25,12 @@ $pages = ($images_amount+1)/$IMAGES_PER_PAGE;
 <body>
 
 <?php if ($db->products->count()): ?>
-    <?php for ($i=$startImage; $i<$last_index; $i++): ?>
+    <?php for ($i=$startImage; $i<$lastIndex; $i++): ?>
     <div class="gallery_image">
-        <h1><?= $i+1 . ". " . $products_array[$i]['name'] ?></h1>
-        <h3><?= $products_array[$i]['author'] ?></h3>
-        <a href="view.php?id=<?= $products_array[$i]['_id'] ?>">
-            <img src="<?= "/images/miniature_" . $products_array[$i]['filename'] ?>"</img> </br>
+        <h1><?= $i+1 . ". " . $productsArray[$i]['name'] ?></h1>
+        <h3><?= $productsArray[$i]['author'] ?></h3>
+        <a href="view.php?id=<?= $productsArray[$i]['_id'] ?>">
+            <img src="<?= "/images/miniature_" . $productsArray[$i]['filename'] ?>"</img> </br>
         </a>
     </div>
     <?php endfor ?>
