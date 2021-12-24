@@ -34,8 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $miniatureFilepath = $uploaddir . "miniature_" . $filename;
+        $watermarkFilepath = $uploaddir . "watermark_" . $filename;
         resizeAndWriteImage($uploadFile, $miniatureFilepath, $MINIATURE_WIDTH, $MINIATURE_HEIGHT);
-
+        watermarkAndWriteImage($uploadFile, $watermarkFilepath, $_POST['watermark']);
         $product = [
             'name' => $_POST['name'],
             'author' => $_POST['author'],
