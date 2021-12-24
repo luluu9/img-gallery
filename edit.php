@@ -1,6 +1,7 @@
 <?php
 
 require_once 'functions.php';
+require_once 'img.php';
 use MongoDB\BSON\ObjectID;
 
 
@@ -10,22 +11,40 @@ $product = [
     'name' => null,
     'author' => null,
     'filePath' => null,
+    'watermark' => null,
     '_id' => null
 ];
+
+$imagesDir = "images/";
+$uploaddir = $_SERVER['DOCUMENT_ROOT'] . "/" . $imagesDir;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['name']) &&
         !empty($_POST['author']) &&
+        !empty($_POST['watermark']) &&
         !empty($_FILES['image'])
     ) {
-        $uploaddir = $_SERVER['DOCUMENT_ROOT'] . "/images/";
         $filename = date('Y-m-d_H-i-s') . "-" . basename($_FILES['image']['name']);
-        $uploadfile = $uploaddir . $filename;
-        move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile);
+        $uploadFile = $uploaddir . $filename;
+        if (!move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
+            throw new Exception("Failed to move uploaded file");
+        }
+
+        $uploadedImage = imagecreatefromjpeg($uploadFile);
+        if (!$uploadedImage) {
+            throw new Exception("The uploaded file is corrupted (or wrong format)");
+        } else {
+            $resizedImage = resizeImage($uploadedImage, 200, 125);
+            $miniatureFilepath = $uploaddir . "miniature_" . $filename;
+            if (!imagejpeg($resizedImage, $miniatureFilepath)) {
+                  throw new Exception("Failed to save resized image");
+            }
+        }
 
         $product = [
             'name' => $_POST['name'],
             'author' => $_POST['author'],
+            'watermark' => $_POST['watermark'],
             'filename' => $filename
         ];
 
@@ -65,6 +84,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <label>
         <span>Autor:</span>
         <input type="text" name="author" value="<?= $product['author'] ?>" required />
+    </label>
+
+     <label>
+        <span>Znak wodny:</span>
+        <input type="text" name="watermark" value="<?= $product['watermark'] ?>" required />
     </label>
 
     <label> 
