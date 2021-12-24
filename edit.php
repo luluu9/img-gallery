@@ -18,6 +18,9 @@ $product = [
 $imagesDir = "images/";
 $uploaddir = $_SERVER['DOCUMENT_ROOT'] . "/" . $imagesDir;
 
+$MINIATURE_WIDTH = 200;
+$MINIATURE_HEIGHT = 125;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['name']) &&
         !empty($_POST['author']) &&
@@ -30,16 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception("Failed to move uploaded file");
         }
 
-        $uploadedImage = imagecreatefromjpeg($uploadFile);
-        if (!$uploadedImage) {
-            throw new Exception("The uploaded file is corrupted (or wrong format)");
-        } else {
-            $resizedImage = resizeImage($uploadedImage, 200, 125);
-            $miniatureFilepath = $uploaddir . "miniature_" . $filename;
-            if (!imagejpeg($resizedImage, $miniatureFilepath)) {
-                  throw new Exception("Failed to save resized image");
-            }
-        }
+        $miniatureFilepath = $uploaddir . "miniature_" . $filename;
+        resizeAndWriteImage($uploadFile, $miniatureFilepath, $MINIATURE_WIDTH, $MINIATURE_HEIGHT);
 
         $product = [
             'name' => $_POST['name'],
