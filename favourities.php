@@ -12,6 +12,7 @@ $productsArray = iterator_to_array($products);
 <head>
     <title>Ulubione</title>
     <link rel="stylesheet" href="styles.css"/>
+    <script src="jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -25,6 +26,8 @@ $productsArray = iterator_to_array($products);
                     <a href="view.php?id=<?= $productsArray[$i]['_id'] ?>">
                         <img src="<?= "/images/miniature_" . $productsArray[$i]['filename'] ?>"</img> </br>
                     </a>
+                    <input type="checkbox" class="rememberCheckbox" name="remember" value="<?= $productsArray[$i]['_id'] ?>">
+                    <label for="remember">Zapamiętaj</label>
                 </div>
             <?php endif ?>
         <?php endfor ?>
@@ -38,6 +41,8 @@ $productsArray = iterator_to_array($products);
 </br>
 </br>   
 <a href="index.php">&laquo; Wróć</a>
+
+<script src="favourities.js"></script>
 
 </body>
 </html>
