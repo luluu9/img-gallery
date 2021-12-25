@@ -48,12 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'watermark_filepath' => $watermarkFilepath
         ];
 
-        if (empty($_POST['id'])) { // new image
-            if ($_POST['access'] == 'private') {
-                if (isset($_SESSION['username'])) {
-                    $product['user'] = $_SESSION['username'];
-                }
+        if ($_POST['access'] == 'private') {
+            if (isset($_SESSION['username'])) {
+                $product['user'] = $_SESSION['username'];
             }
+        }
+
+        if (empty($_POST['id'])) { // new image
             $db->products->insertOne($product);            
         } else { // edit image
             $id = $_POST['id']; 
@@ -107,8 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </label>
 
     <label> 
-        <input type="radio" id="private" name="access" value="private"/>
-        <input type="radio" id="public" name="access" value="public" checked/>
+        <input type="radio" id="private" name="access" value="private" <?php if (isset($product['user'])) { echo 'checked'; }?> />
+        <input type="radio" id="public" name="access" value="public" <?php if (!isset($product['user'])) { echo 'checked'; }?> />
     </label>
     <label for="private">Prywatne</label>
     <label for="public">Publiczne</label>
