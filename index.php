@@ -2,6 +2,7 @@
 
 require_once 'functions.php';
 
+session_start();
 $db = get_db();
 $products = $db->products->find();
 
@@ -57,9 +58,14 @@ $products = $db->products->find();
 <a href="gallery.php">Galeria</a>
 <a href="favourities.php">Ulubione</a>
 <a href="search.php">Wyszukiwarka</a></br>
-
-<a href="register.php">Zarejestruj</a>
-<a href="login.php">Zaloguj</a>
-
+<?php
+if (isset($_SESSION['username'])) {
+    echo '<a href="logout.php">Wyloguj</a>';
+}
+else {
+    echo '<a href="register.php">Zarejestruj</a>
+          <a href="login.php">Zaloguj</a>';
+}
+?>
 </body>
 </html>

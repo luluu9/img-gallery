@@ -45,7 +45,7 @@
         <input type="password" name="password" placeholder="Hasło" required>
         <input type="password" name="passwordAgain" placeholder="Powtórz hasło">
         <input type="submit" name="submit" value="Zarejestruj">
-    </form>
+    </form></br>
     <a href="login.php">Zaloguj się</a>
 <?php
     }
