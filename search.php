@@ -3,7 +3,7 @@
 require_once 'functions.php';
 
 $db = get_db();
-$products = $db->products->find();
+$products = getCurrentUserProducts($db->products->find());
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $query = $_POST['name'];

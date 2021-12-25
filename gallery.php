@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 require_once 'functions.php';
 
 $IMAGES_PER_PAGE = 2;
@@ -10,8 +11,10 @@ if (!empty($_GET['page'])) {
 
 $db = get_db();
 $products = $db->products->find();
-$productsArray = iterator_to_array($products);
-$imagesAmount = count($productsArray);
+
+$userProducts = getCurrentUserProducts($products);
+
+$imagesAmount = count($userProducts);
 $lastIndex = ($imagesAmount < $startImage+$IMAGES_PER_PAGE) ? $imagesAmount : $startImage+$IMAGES_PER_PAGE;
 $pages = ($imagesAmount+1)/$IMAGES_PER_PAGE;
 
@@ -26,18 +29,18 @@ $pages = ($imagesAmount+1)/$IMAGES_PER_PAGE;
 
 <body>
 
-<?php if ($db->products->count()): ?>
-    <?php print_r($_COOKIE); ?>
+<?php if ($lastIndex): ?>
     <?php for ($i=$startImage; $i<$lastIndex; $i++): ?>
-    <div class="gallery_image">
-        <h1><?= $i+1 . ". " . $productsArray[$i]['name'] ?></h1>
-        <h3><?= $productsArray[$i]['author'] ?></h3>
-        <a href="view.php?id=<?= $productsArray[$i]['_id'] ?>">
-            <img src="<?= "/images/miniature_" . $productsArray[$i]['filename'] ?>"</img> </br>
-        </a>
-        <input type="checkbox" class="rememberCheckbox" name="remember" value="<?= $productsArray[$i]['_id'] ?>">
-        <label for="remember">Zapamiętaj</label>
-    </div>
+        <div class="gallery_image">
+            <h1><?= $i+1 . ". " . $userProducts[$i]['name'] ?></h1>
+            <h3><?= $userProducts[$i]['author'] ?></h3>
+            <a href="view.php?id=<?= $userProducts[$i]['_id'] ?>">
+                <img src="<?= "/images/miniature_" . $userProducts[$i]['filename'] ?>"</img> </br>
+            </a>
+            <?php if (isset($userProducts[$i]['user'])) { echo "<p>Plik prywatny</p>"; }?>
+            <input type="checkbox" class="rememberCheckbox" name="remember" value="<?= $userProducts[$i]['_id'] ?>">
+            <label for="remember">Zapamiętaj</label>
+        </div>
     <?php endfor ?>
 <?php else: ?>
     Brak produktów

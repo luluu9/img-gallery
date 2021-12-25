@@ -1,10 +1,10 @@
 <?php
 
+session_start();
 require_once 'functions.php';
 require_once 'img.php';
 use MongoDB\BSON\ObjectID;
 
-session_start();
 $db = get_db();
 
 $author = (isset($_SESSION['username'])) ? $_SESSION['username'] : null;
@@ -49,14 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
 
         if (empty($_POST['id'])) { // new image
-            if ($_POST['access'] == 'public') {
-                $db->products->insertOne($product);
+            if ($_POST['access'] == 'private') {
+                if (isset($_SESSION['username'])) {
+                    $product['user'] = $_SESSION['username'];
+                }
             }
-            else {
-                
-                //$db->users->
-            }
-            
+            $db->products->insertOne($product);            
         } else { // edit image
             $id = $_POST['id']; 
             

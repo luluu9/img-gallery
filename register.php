@@ -1,3 +1,7 @@
+<?php
+    require_once 'functions.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +11,6 @@
 </head>
 <body>
 <?php
-    require_once 'functions.php';
  
     if (isset($_POST['username']) &&
         isset($_POST['email']) && 

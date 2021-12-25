@@ -1,10 +1,9 @@
 <?php
-
+session_start();
 require_once 'functions.php';
 
-session_start();
 $db = get_db();
-$products = $db->products->find();
+$products = getCurrentUserProducts($db->products->find());
 
 ?>
 <!DOCTYPE html>
@@ -47,7 +46,7 @@ $products = $db->products->find();
 
     <tfoot>
     <tr>
-        <td colspan="2">Łącznie: <?= $db->products->count() ?></td>
+        <td colspan="2">Łącznie: <?= count($products) ?></td>
         <td>
             <a href="edit.php">nowy produkt</a>
         </td>
