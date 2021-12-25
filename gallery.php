@@ -22,9 +22,11 @@ $pages = ($imagesAmount+1)/$IMAGES_PER_PAGE;
     <title>Galeria</title>
     <link rel="stylesheet" href="styles.css"/>
 </head>
+<script src="jquery-3.6.0.min.js"></script>
 <body>
 
 <?php if ($db->products->count()): ?>
+    <?php print_r($_COOKIE); ?>
     <?php for ($i=$startImage; $i<$lastIndex; $i++): ?>
     <div class="gallery_image">
         <h1><?= $i+1 . ". " . $productsArray[$i]['name'] ?></h1>
@@ -32,6 +34,8 @@ $pages = ($imagesAmount+1)/$IMAGES_PER_PAGE;
         <a href="view.php?id=<?= $productsArray[$i]['_id'] ?>">
             <img src="<?= "/images/miniature_" . $productsArray[$i]['filename'] ?>"</img> </br>
         </a>
+        <input type="checkbox" class="rememberCheckbox" name="remember" value="<?= $productsArray[$i]['_id'] ?>">
+        <label for="remember">Zapamiętaj</label>
     </div>
     <?php endfor ?>
 <?php else: ?>
@@ -46,6 +50,26 @@ for ($i=1; $i<=$pages; $i++) {
 </br>   
 </br>   
 <a href="index.php">&laquo; Wróć</a>
+
+<script>
+var checkboxes = document.querySelectorAll(".rememberCheckbox");
+
+checkboxes.forEach(function(checkbox) {
+  checkbox.addEventListener('change', function() {
+    var serializedData = {'name': 'id[', 'value': checkbox.value};
+    request = $.ajax({
+        url: "/setcookie.php",
+        type: "post",
+        data: serializedData
+    });
+    request.done(function (response, textStatus, jqXHR){
+        // Log a message to the console
+        console.log(response);
+    });
+  })
+  
+});
+</script>
 
 </body>
 </html>
