@@ -56,16 +56,28 @@ var checkboxes = document.querySelectorAll(".rememberCheckbox");
 
 checkboxes.forEach(function(checkbox) {
   checkbox.addEventListener('change', function() {
-    var serializedData = {'name': 'id[', 'value': checkbox.value};
-    request = $.ajax({
-        url: "/setcookie.php",
-        type: "post",
-        data: serializedData
-    });
-    request.done(function (response, textStatus, jqXHR){
-        // Log a message to the console
-        console.log(response);
-    });
+    if (checkbox.checked) {
+        var serializedData = {'name': 'id[', 'value': checkbox.value};
+        request = $.ajax({
+            url: "/setcookie.php",
+            type: "post",
+            data: serializedData
+        });
+        request.done(function (response, textStatus, jqXHR){
+            console.log(response);
+        });
+    }
+    else {
+        var serializedData = {'name': 'id', 'value': checkbox.value};
+        request = $.ajax({
+            url: "/removecookie.php",
+            type: "post",
+            data: serializedData
+        });
+        request.done(function (response, textStatus, jqXHR){
+            console.log(response);
+        });
+    }
   })
   
 });

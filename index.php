@@ -55,6 +55,7 @@ $products = $db->products->find();
 </table>
 
 <a href="gallery.php">Galeria</a>
+<a href="favourites.php">Ulubione</a>
 
 </body>
 </html>

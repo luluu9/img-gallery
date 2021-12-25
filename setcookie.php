@@ -7,7 +7,6 @@ function endsWith( $haystack, $needle ) {
     return substr( $haystack, -$length ) === $needle;
 }
 
-//print_r($_POST);
 if (isset($_POST['name'])) {
 	$cookieName = $_POST['name'];
 	$cookieValue = $_POST['value'];
