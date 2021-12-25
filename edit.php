@@ -4,11 +4,13 @@ require_once 'functions.php';
 require_once 'img.php';
 use MongoDB\BSON\ObjectID;
 
+session_start();
 $db = get_db();
 
+$author = (isset($_SESSION['username'])) ? $_SESSION['username'] : null;
 $product = [
     'name' => null,
-    'author' => null,
+    'author' => $author,
     'filePath' => null,
     'watermark' => null,
     '_id' => null

@@ -42,6 +42,7 @@
         <input type="password" name="password" placeholder="Hasło" required>
         <input type="submit" name="submit" value="Zaloguj">
     </form></br>
+    <a href="index.php">&laquo; Wróć</a>
     <a href="register.php">Zarejestruj się</a>
 
 </body>
