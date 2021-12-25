@@ -49,7 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
 
         if (empty($_POST['id'])) { // new image
-            $db->products->insertOne($product);
+            if ($_POST['access'] == 'public') {
+                $db->products->insertOne($product);
+            }
+            else {
+                
+                //$db->users->
+            }
+            
         } else { // edit image
             $id = $_POST['id']; 
             
@@ -91,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" name="author" value="<?= $product['author'] ?>" required />
     </label>
 
-     <label>
+    <label>
         <span>Znak wodny:</span>
         <input type="text" name="watermark" value="<?= $product['watermark'] ?>" required />
     </label>
@@ -100,6 +107,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <span>Zdjęcie:</span>
         <input type="file" id="image" name="image" accept="image/png, image/jpeg" required />
     </label>
+
+    <label> 
+        <input type="radio" id="private" name="access" value="private"/>
+        <input type="radio" id="public" name="access" value="public" checked/>
+    </label>
+    <label for="private">Prywatne</label>
+    <label for="public">Publiczne</label>
 
     <input type="hidden" name="id" value="<?= $product['_id'] ?>">
 
