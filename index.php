@@ -56,7 +56,10 @@ $products = $db->products->find();
 
 <a href="gallery.php">Galeria</a>
 <a href="favourities.php">Ulubione</a>
-<a href="search.php">Wyszukiwarka</a>
+<a href="search.php">Wyszukiwarka</a></br>
+
+<a href="register.php">Zarejestruj</a>
+<a href="login.php">Zaloguj</a>
 
 </body>
 </html>
