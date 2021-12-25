@@ -3,8 +3,7 @@
 require '../../vendor/autoload.php';
 
 
-function get_db()
-{
+function get_db() {
     $mongo = new MongoDB\Client(
         "mongodb://localhost:27017/wai",
         [
@@ -16,3 +15,11 @@ function get_db()
 
     return $db;
 }
+
+
+function startsWith($string, $startString)
+{
+    $len = strlen($startString);
+    return (substr($string, 0, $len) === $startString);
+}
+ 

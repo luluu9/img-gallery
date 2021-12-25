@@ -56,6 +56,7 @@ $products = $db->products->find();
 
 <a href="gallery.php">Galeria</a>
 <a href="favourities.php">Ulubione</a>
+<a href="search.php">Wyszukiwarka</a>
 
 </body>
 </html>
