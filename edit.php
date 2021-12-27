@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'watermark_filepath' => $watermarkFilepath
         ];
 
-        if ($_POST['access'] == 'private') {
+        if (isset($_POST['access']) && $_POST['access'] == 'private') {
             if (isset($_SESSION['username'])) {
                 $product['user'] = $_SESSION['username'];
             }
@@ -107,12 +107,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="file" id="image" name="image" accept="image/png, image/jpeg" required />
     </label>
 
-    <label> 
-        <input type="radio" id="private" name="access" value="private" <?php if (isset($product['user'])) { echo 'checked'; }?> />
-        <input type="radio" id="public" name="access" value="public" <?php if (!isset($product['user'])) { echo 'checked'; }?> />
-    </label>
-    <label for="private">Prywatne</label>
-    <label for="public">Publiczne</label>
+    <?php 
+    if (isset($_SESSION['username'])) {
+        echo
+        '<label> 
+            <input type="radio" id="private" name="access" value="private" ' .  (isset($product["user"]) ? "checked" : "" ) . ' />
+            <input type="radio" id="public" name="access" value="public" ' . (!isset($product["user"]) ? "checked" : "") . ' />
+        </label>
+        <label for="private">Prywatne</label>
+        <label for="public">Publiczne</label>';
+    }
+    
+    ?>
+
 
     <input type="hidden" name="id" value="<?= $product['_id'] ?>">
 

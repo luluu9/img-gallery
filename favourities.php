@@ -4,7 +4,8 @@ require_once 'functions.php';
 
 $db = get_db();
 $products = $db->products->find();
-$productsArray = iterator_to_array($products);
+$productsArray = getCurrentUserProducts($products);
+print_r($productsArray);
 
 ?>
 <!DOCTYPE html>
@@ -17,8 +18,8 @@ $productsArray = iterator_to_array($products);
 <body>
 
 <?php if (!empty($_COOKIE["id"])): ?>
-    <?php if ($db->products->count()): ?>
-        <?php for ($i=0; $i<$db->products->count(); $i++): ?>
+    <?php if (count($productsArray)): ?>
+        <?php for ($i=0; $i<count($productsArray); $i++): ?>
             <?php if (in_array($productsArray[$i]['_id'], $_COOKIE["id"])): ?>
                 <div class="gallery_image">
                     <h1><?= $i+1 . ". " . $productsArray[$i]['name'] ?></h1>
