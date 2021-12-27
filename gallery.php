@@ -17,7 +17,6 @@ $userProducts = getCurrentUserProducts($products);
 $imagesAmount = count($userProducts);
 $lastIndex = ($imagesAmount < $startImage+$IMAGES_PER_PAGE) ? $imagesAmount : $startImage+$IMAGES_PER_PAGE;
 $pages = ($imagesAmount+1)/$IMAGES_PER_PAGE;
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,7 +37,10 @@ $pages = ($imagesAmount+1)/$IMAGES_PER_PAGE;
                 <img src="<?= "/images/miniature_" . $userProducts[$i]['filename'] ?>"</img> </br>
             </a>
             <?php if (isset($userProducts[$i]['user'])) { echo "<p>Plik prywatny</p>"; }?>
-            <input type="checkbox" class="rememberCheckbox" name="remember" value="<?= $userProducts[$i]['_id'] ?>">
+            <input type="checkbox" class="rememberCheckbox" name="remember" autocomplete="off" value="<?= $userProducts[$i]['_id']  ?> " 
+            <?php if (isset($_SESSION["favourities"])) { 
+                    if (in_array($userProducts[$i]['_id'], $_SESSION["favourities"])) { echo "checked"; } 
+                    }; ?>
             <label for="remember">Zapamiętaj</label>
         </div>
     <?php endfor ?>

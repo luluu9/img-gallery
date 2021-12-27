@@ -1,11 +1,10 @@
 <?php
-
+session_start();
 require_once 'functions.php';
 
 $db = get_db();
 $products = $db->products->find();
 $productsArray = getCurrentUserProducts($products);
-print_r($productsArray);
 
 ?>
 <!DOCTYPE html>
@@ -17,17 +16,17 @@ print_r($productsArray);
 </head>
 <body>
 
-<?php if (!empty($_COOKIE["id"])): ?>
+<?php if (!empty($_SESSION["favourities"])): ?>
     <?php if (count($productsArray)): ?>
         <?php for ($i=0; $i<count($productsArray); $i++): ?>
-            <?php if (in_array($productsArray[$i]['_id'], $_COOKIE["id"])): ?>
+            <?php if (in_array($productsArray[$i]['_id'], $_SESSION["favourities"])): ?>
                 <div class="gallery_image">
                     <h1><?= $i+1 . ". " . $productsArray[$i]['name'] ?></h1>
                     <h3><?= $productsArray[$i]['author'] ?></h3>
                     <a href="view.php?id=<?= $productsArray[$i]['_id'] ?>">
                         <img src="<?= "/images/miniature_" . $productsArray[$i]['filename'] ?>"</img> </br>
                     </a>
-                    <input type="checkbox" class="rememberCheckbox" name="remember" value="<?= $productsArray[$i]['_id'] ?>">
+                    <input type="checkbox" class="rememberCheckbox" name="remember" checked=true value="<?= $productsArray[$i]['_id'] ?>">
                     <label for="remember">Zapamiętaj</label>
                 </div>
             <?php endif ?>
