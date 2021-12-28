@@ -23,29 +23,34 @@ table tfoot td:last-child {
 
 form label {
     display: block;
-    margin: 10px;
-    width: 300px;
+    margin: 10px 10px 10px 0px;
+    width: 800px;
 }
 
 textarea {
     display: block;
-    margin: 10px;
+    margin: 10px 10px 10px 0px;
     padding: 2px;
     border-width: 1px;
-    width: 294px;
+    width: 794px;
     height: 90px;
 }
 
 form label input {
-    width: 200px;
+    width: 700px;
     float: right;
 }
 
 form input[type=submit] {
     display: block;
-    width: 70px;
-    margin: 10px 0px 10px 240px;
+    width: 80px;
+    margin: 10px 0px 10px 720px;
+}
 
+form.inline, form.inline input {
+    margin: 0px;
+    width: auto;
+    display: inline;
 }
 
 a.cancel {
@@ -55,4 +60,18 @@ a.cancel {
 p.description {
     width: 800px;
     text-align: justify;
+}
+
+footer {
+    border-top: 1px solid black;
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    bottom: 0px;
+    width: 780px;
+}
+
+#cart {
+    position: relative;
+    width: 800px;
 }

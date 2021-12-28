@@ -5,7 +5,7 @@ checkboxes.forEach(function (checkbox) {
         if (checkbox.checked) {
             var serializedData = { 'newFavourite': checkbox.value };
             request = $.ajax({
-                url: "/setfavourite.php",
+                url: "/favourite/set",
                 type: "post",
                 data: serializedData
             });
@@ -16,7 +16,7 @@ checkboxes.forEach(function (checkbox) {
         else {
             var serializedData = { 'favourite': checkbox.value };
             request = $.ajax({
-                url: "/unsetfavourite.php",
+                url: "/favourite/unset",
                 type: "post",
                 data: serializedData
             });
