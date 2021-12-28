@@ -9,7 +9,7 @@
 
 <form method="post" enctype="multipart/form-data">
     <label>
-        <span>Tytu≥:</span>
+        <span>Tytu≈Ç:</span>
         <input type="text" name="name" value="<?= $model['name'] ?>" required />
     </label>
 
@@ -24,7 +24,7 @@
     </label>
 
     <label> 
-        <span>ZdjÍcie:</span>
+        <span>Zdjƒôcie:</span>
         <input type="file" id="image" name="image" accept="image/png, image/jpeg" required />
     </label>
 
@@ -55,11 +55,11 @@ var uploadField = document.getElementById("image");
 
 uploadField.onchange = function() {
     if (this.files[0].size > 1*1024*1024) {
-       alert("Plik jest zbyt duøy!");
+       alert("Plik jest zbyt du≈ºy!");
        this.value = "";
     };
     if (this.files[0].type != "image/png" && this.files[0].type != "image/jpeg") {
-       alert("Plik ma niew≥aúciwy format! (tylko jpg/png)");
+       alert("Plik ma niew≈Ça≈õciwy format! (tylko jpg/png)");
        this.value = "";
     };
 };
