@@ -21,13 +21,6 @@ function get_products()
     return $db->products->find()->toArray();
 }
 
-function get_products_by_category($cat)
-{
-    $db = get_db();
-    $products = $db->products->find(['cat' => $cat]);
-    return $products;
-}
-
 function get_product($id)
 {
     $db = get_db();
@@ -77,23 +70,19 @@ function get_users() {
     return $db->users->find();
 }
 
+function get_user($username, $password, $only_username=false) {
+    $db = get_db();
+    $user = ["username" => $username];
+    if ($only_username == false) {
+        $user["password"] = $password;
+    }
+    return $db->users->findOne($user);
+}
+
 function user_exists($username, $password='', $only_username=false) {
     $users = get_users();
-    if (count($users) > 0) {
-        foreach ($users as $user) {
-            if ($only_username) {
-                if ($username == $user['username']) {
-                    return true;
-                }
-            }
-            else {
-                if ($username == $user['username'] && $password == $user['password']) {
-                    return true;
-                }
-            }
-            
-        }
-    }
+    $user = get_user($username, $password, $only_username);
+    if ($user) { return true; }
     return false;
 }
 
@@ -108,7 +97,11 @@ function try_login($username, $password) {
 
 function register_user($user) {
     $db = get_db();
-    $db->users->insertOne($user);
+    if ($db->products->findOne(['username' => $user['username']]) == null) {
+        $db->users->insertOne($user);
+        return true;
+    }
+    return false;
 }
 
 function is_logged() {

@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\views"
   ],
-  "SelectedNode": "\\controller_utils.php",
+  "SelectedNode": "\\views\\product_view.php",
   "PreviewInSolutionExplorer": false
 }
