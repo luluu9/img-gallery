@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\views"
+    "\\views",
+    "\\web",
+    "\\web\\static",
+    "\\web\\static\\js"
   ],
-  "SelectedNode": "\\views\\product_view.php",
+  "SelectedNode": "\\views\\favourities_view.php",
   "PreviewInSolutionExplorer": false
 }

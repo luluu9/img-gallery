@@ -50,6 +50,17 @@ function edit(&$model) {
 			$filename = date('Y-m-d_H-i-s') . "-" . basename($_FILES['image']['name']);
 			$uploadFile = $uploadDir . $filename;
 
+			$ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+			if ($ext != "png" && $ext != "jpg") {
+				$model["response"] = "Zły format pliku!";
+				return 'edit_view';
+			}
+			if ($_FILES['image']['size'] > 1*1024*1024) {
+				$model["response"] = "Plik jest za duży!";	
+				return 'edit_view';
+			}
+			
+
 			if (!move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
 				throw new Exception("Failed to move uploaded file");
 			}

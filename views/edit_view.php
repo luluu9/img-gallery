@@ -44,11 +44,17 @@
 
     <input type="hidden" name="id" value="<?= $model['_id'] ?>">
 
+    <?php if (isset($model["response"])): ?>
+        <span style="color:#ff0000"><?=$model["response"]?></span>
+    <?php endif ?>
+
     <div>
         <a href="products" class="cancel">Anuluj</a>
         <input type="submit" value="Zapisz"/>
     </div>
 </form>
+
+</body>
 
 <script>
 var uploadField = document.getElementById("image");
@@ -65,5 +71,4 @@ uploadField.onchange = function() {
 };
 </script>
 
-</body>
 </html>
