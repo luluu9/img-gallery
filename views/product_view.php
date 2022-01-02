@@ -10,7 +10,7 @@
 
 <h3><?= $product['author'] ?></h3>
 
-<img src="<?= $product['rel_filepath'] ?>"</img> </br>
+<img src="<?= $product['rel_watermark_filepath'] ?>"</img> </br>
 
 <a href="products">&laquo; Wróć</a>
 
