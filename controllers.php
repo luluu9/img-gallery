@@ -84,9 +84,7 @@ function edit(&$model) {
             } else { // edit image
                 $id = $_POST['id']; 
                 $oldProduct = get_product($id);
-                unlink($oldProduct['filepath']);
-                unlink($oldProduct['watermark_filepath']);
-                unlink($oldProduct['miniature_filepath']);
+                delete_product_files($oldProduct);
                 save_product($id, $model);
             }
 

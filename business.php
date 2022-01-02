@@ -48,8 +48,7 @@ function getCurrentUserProducts() {
     return $userProducts;
 }
 
-function save_product($id, $product)
-{
+function save_product($id, $product) {
     $db = get_db();
 
     if ($id == null) {
@@ -61,10 +60,16 @@ function save_product($id, $product)
     return true;
 }
 
-function delete_product($id)
-{
+function delete_product($id) {
     $db = get_db();
+    delete_product_files(get_product($id));
     $db->products->deleteOne(['_id' => new ObjectID($id)]);
+}
+
+function delete_product_files($product) {
+    unlink($product['filepath']);
+    unlink($product['watermark_filepath']);
+    unlink($product['miniature_filepath']);
 }
 
 function get_users() {
