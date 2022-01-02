@@ -124,7 +124,6 @@ function login(&$model) {
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
 		if (isset($_POST['username']) &&
 			isset($_POST['password'])) {
-			echo ($_POST['password']);
 			$username = stripslashes($_REQUEST['username']);
 			$password = hash("sha256", stripslashes($_REQUEST['password']));
 		  

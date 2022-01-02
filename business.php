@@ -1,8 +1,7 @@
 <?php
 use MongoDB\BSON\ObjectID;
 
-function get_db()
-{
+function get_db() {
     $mongo = new MongoDB\Client(
         "mongodb://localhost:27017/wai",
         [
@@ -15,19 +14,17 @@ function get_db()
     return $db;
 }
 
-function get_products()
-{
+function get_products() {
     $db = get_db();
     return $db->products->find()->toArray();
 }
 
-function get_product($id)
-{
+function get_product($id) {
     $db = get_db();
     return $db->products->findOne(['_id' => new ObjectID($id)])->getArrayCopy();
 }
 
-function getCurrentUserProducts() {
+function getCurrentUserProducts() {;
     $products = get_products();
     $userProducts = [];
     foreach ($products as $key=>$product) {
