@@ -9,7 +9,7 @@
         <h1>Logowanie</h1>
         <input type="text" name="username" placeholder="Username" required />
         <input type="password" name="password" id="password" placeholder="Hasło" required>
-        <div id="respone"><?= $response ?></div>
+        <div id="response"><?= $response ?></div>
         <input type="submit" name="submit" value="Zaloguj">
     </form></br>
     <a href="products">&laquo; Wróć</a>
