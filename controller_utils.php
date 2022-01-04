@@ -1,14 +1,5 @@
 <?php
 
-function &get_cart()
-{
-    if (!isset($_SESSION['cart'])) {
-        $_SESSION['cart'] = []; //pusty koszyk
-    }
-
-    return $_SESSION['cart'];
-}
-
 function startsWith($string, $startString) {
     $len = strlen($startString);
     return (substr($string, 0, $len) === $startString);
