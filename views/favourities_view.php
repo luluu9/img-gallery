@@ -12,7 +12,7 @@
         <div class="gallery_image">
             <h1><?= $key+1 . ". " . $favourite['name'] ?></h1>
             <h3><?= $favourite['author'] ?></h3>
-            <a href="view.php?id=<?= $favourite['_id'] ?>">
+            <a href="view?id=<?= $favourite['_id'] ?>">
                 <img src="<?= $favourite['rel_miniature_filepath'] ?>"</img> </br>
             </a>
             <input type="checkbox" class="rememberCheckbox" name="remember" checked=true value="<?= $favourite['_id'] ?>">
